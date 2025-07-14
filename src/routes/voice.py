@@ -250,7 +250,7 @@ def test_voice_connection():
             'connection_test': result,
             'service_status': 'operational' if result['success'] else 'degraded',
             'mock_mode': result['mock_mode'],
-            'timestamp': voice_service.synthesize_speech('test', return_base64=False)['timestamp'],
+            'timestamp': result.get('timestamp', 'unknown'),
             'status': 'success'
         })
         
