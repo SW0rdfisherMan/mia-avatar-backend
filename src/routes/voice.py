@@ -31,8 +31,7 @@ def synthesize_text():
         result = voice_service.synthesize_speech(
             text=text,
             voice_tone=voice_tone,
-            output_format=output_format,
-            return_base64=return_audio
+            language=data.get('language', 'en')
         )
         
         if not result['success']:
@@ -44,9 +43,10 @@ def synthesize_text():
         response_data = {
             'text': result['text'],
             'optimized_text': result['optimized_text'],
-            'voice_profile': result['voice_profile'],
+            'voice_id': result.get('voice_id', 'unknown'),
             'voice_tone': result['voice_tone'],
-            'audio_format': result['audio_format'],
+            'language': result.get('language', 'en'),
+            'audio_format': result.get('audio_format', 'mp3'),
             'duration_estimate': result['duration_estimate'],
             'audio_size': result['audio_size'],
             'timestamp': result['timestamp'],
@@ -55,8 +55,6 @@ def synthesize_text():
         
         if return_audio:
             response_data['audio_base64'] = result['audio_base64']
-        else:
-            response_data['audio_file_path'] = result.get('audio_file_path')
         
         if result.get('mock'):
             response_data['mock_mode'] = True
