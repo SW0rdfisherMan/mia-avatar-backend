@@ -47,5 +47,6 @@ def health_check():
 if __name__ == '__main__':
     print("🤖 Starting Mia AI Backend Server...")
     print("🌟 Beautiful, intelligent tech support avatar ready!")
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    port = int(os.environ.get('PORT', 5001))
+    app.run(host='0.0.0.0', port=port, debug=False)
 
